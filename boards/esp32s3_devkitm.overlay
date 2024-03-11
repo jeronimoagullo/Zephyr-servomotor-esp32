@@ -10,7 +10,7 @@
 		compatible = "pwm-leds";
 		pwm_servo0: pwm_led_gpio0_2 {
 			label = "PWM SERVO0";
-			pwms = <&ledc0 0 50 PWM_POLARITY_NORMAL>;
+			pwms = <&ledc0 0 PWM_MSEC(20) PWM_POLARITY_NORMAL>;
 		};
 	};
 };

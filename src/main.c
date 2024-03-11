@@ -16,9 +16,6 @@
 
 static const struct pwm_dt_spec pwm_servo_0 = PWM_DT_SPEC_GET(DT_ALIAS(pwm_servo0));
 
-// The SG90 servomotors expect a 50Hz signal
-#define PERIOD PWM_MSEC(20) 			// 20ms
-
 // Minimum and Maximum angles (0 - 180º)
 #define MIN_ANGLE_PULSE PWM_USEC(500)	// 500us --> 0°
 #define MAX_ANGLE_PULSE PWM_USEC(2500) 	// 2.5ms --> 180°
@@ -43,14 +40,14 @@ int main(void)
 		return 0;
 	}
 
-	printk("Period: %lu nsec\nMIN_ANGLE_PULSE: %lu nsec\nMAX_ANGLE_PULSE: %lu nsec\n\n",
-			PERIOD, MIN_ANGLE_PULSE, MAX_ANGLE_PULSE);
+	printk("Period: %d nsec\nMIN_ANGLE_PULSE: %lu nsec\nMAX_ANGLE_PULSE: %lu nsec\n\n",
+			pwm_servo_0.period, MIN_ANGLE_PULSE, MAX_ANGLE_PULSE);
 
 
 	while (1) {
 
 		printk("pulse_width: %d us\n", pulse_width/1000);
-		ret = pwm_set_dt(&pwm_servo_0, PERIOD, pulse_width);
+		ret = pwm_set_pulse_dt(&pwm_servo_0, pulse_width);
 		if (ret < 0) {
 			printk("Error %d: failed to set pulse width\n", ret);
 			return 0;
