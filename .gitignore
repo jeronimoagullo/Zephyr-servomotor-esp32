@@ -18,6 +18,3 @@ cscope.*
 .dir
 
 /*.patch
-
-Doxygen*/
-images*/
